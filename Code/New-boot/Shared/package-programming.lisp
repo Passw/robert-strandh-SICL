@@ -123,6 +123,11 @@
 (defmethod (setf parcl-low:name-to-entry) (entry (client client) name table)
   (setf (gethash name table) entry))
 
+;;; When the package is either the COMMON-LISP package or the KEYWORD
+;;; package, this method is the only onw that is applicable.
+(defmethod parcl-low-class:name ((package package))
+  (package-name package))
+
 (defun package-designator-to-package (client environment package-designator)
   (typecase package-designator
     ((or string character symbol)
